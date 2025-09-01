@@ -1,17 +1,32 @@
-//função chamada automaticamente quando o feed receber atualizações
+
+// Função chamada automaticamente quando o feed receber atualizações
 void handleTemperatura(AdafruitIO_Data *data){
   float temp = data -> toFloat();
 
   Serial.print(F("Temperatura do feed: "));
-  Serial.println(temp, 2);
-  Serial.println("°C");
+  Serial.print(temp, 2);
+  Serial.println(F("°C"));
 
-  //lógica para acender ou nãoo LED
+  // Lógica para acender ou não o LED
   if(temp <= 0){
     digitalWrite(pinLed, HIGH);
   }
   else{
     digitalWrite(pinLed, LOW);
   }
+}
 
+void handleBotaoLed(AdafruitIO_Data *data){
+  String state = data->toString();
+
+
+  Serial.print(F("State do feed: "));
+  Serial.println(state);
+
+  if(state == "true"){
+    digitalWrite(pinLed, HIGH);
+  }
+  else{
+    digitalWrite(pinLed, LOW);
+  }
 }

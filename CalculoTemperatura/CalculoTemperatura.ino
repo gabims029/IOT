@@ -19,7 +19,7 @@ float temp_atual = 0;
 float temp_anterior = -1;
 
 //Variável / ponteiro para referenciar o feed temperatura
-AdafruitIO_Feed *temperatura = io.feed("Temperatura");
+AdafruitIO_Feed *botaoled = io.feed("botaoled");
 
 const float Rfixo = 10000.0; //Resistor do projeto
 const float Beta = 3950.0;
@@ -47,7 +47,7 @@ void setup() {
   Serial.println(io.statusText());
 
   // Configuração do callback, quando o feed receber(atualizar) um valor
-  temperatura -> onMessage(handleTemperatura);
+  botaoled -> onMessage(handleBotaoLed);
   // Registra a função de callback 
   // Ela será chamada sempre que o feed receber um novo dado
 
@@ -61,5 +61,5 @@ void loop() {
   
   //publicacao(); // Chamada da função publish
 
-  delay(3000);
+  delay(500);
 }
