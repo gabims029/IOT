@@ -1,5 +1,14 @@
+//pushbutton
+void testeBotao(int pinoBotao){
+  Serial.print(F("Estado Botao: "));
+  Serial.println(digitalRead(pinoBotao));
+  delay(500);
+}
+
+//calculo temperatura
 #include <math.h>
 #include "AdafruitIO_WiFi.h"
+#include "NewPing.h"
 
 //configurações da rede Wifi
 #define WIFI_SSID "..."
@@ -13,6 +22,16 @@ AdafruitIO_WiFi io(IO_USERNAME, IO_KEY, WIFI_SSID, WIFI_PASS);
 
 #define pinNTC 34
 #define pinLed 14 // Pino do LED
+#define BUZZER_PIN 27 //Pino da buzzer
+#define LED_ALARME 13 
+#define BOTAO_FISICO 26
+#define TRIG_PIN 12
+#define ECHO_PIN 14
+
+//Configuração do ultrassonico
+#define MAX_DISTANCE 100
+NewPing sonar(TRIG_PIN, ECHO_PIN, MAX_DISTANCE);
+
 
 //Controle de envio de dados
 float temp_atual = 0;
@@ -30,6 +49,11 @@ const float Vcc = 3.3;
 void setup() {
   pinMode(pinNTC, INPUT);
   pinMode(pinLed, OUTPUT);
+  pinMode(BUZZER_PIN, OUTPUT);
+  pinMode(LED_ALARME, OUTPUT);
+  pinMode(BOTAO_FISICO, INPUT);
+
+  delay(1000);
 
   Serial.begin(115200);
 
@@ -56,10 +80,16 @@ void setup() {
 
 void loop() {
 
-  //Manter a conexão com o Adafruit IO ativa
-  io.run();
+  // //Manter a conexão com o Adafruit IO ativa
+  // io.run();
   
-  //publicacao(); // Chamada da função publish
+  // //publicacao(); // Chamada da função publish
 
-  delay(500);
+  // delay(500);
+
+  //Sensor ultrassonico
+  // Serial.print(F("Distancia Lida: "));
+  // Serial.println(sonar.ping_cm());
+  // delay(500);
+
 }
